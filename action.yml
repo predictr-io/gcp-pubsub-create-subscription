@@ -1,0 +1,51 @@
+name: 'GCP Pub/Sub Create Subscription'
+description: 'Create Google Cloud Pub/Sub subscriptions'
+author: 'predictr-io'
+
+branding:
+  icon: 'rss'
+  color: 'blue'
+
+inputs:
+  project-id:
+    description: 'GCP project ID'
+    required: true
+  subscription-name:
+    description: 'Pub/Sub subscription name'
+    required: true
+  topic-name:
+    description: 'Pub/Sub topic name to subscribe to'
+    required: true
+  skip-if-exists:
+    description: 'Skip with success if subscription already exists (default: false)'
+    required: false
+    default: 'false'
+  ack-deadline-seconds:
+    description: 'Acknowledgment deadline in seconds (10-600, default: 10)'
+    required: false
+  push-endpoint:
+    description: 'Push endpoint URL (if using push subscription)'
+    required: false
+  filter:
+    description: 'Message filter expression'
+    required: false
+  labels:
+    description: 'Subscription labels as JSON object (e.g., {"env": "prod"})'
+    required: false
+  retain-acked-messages:
+    description: 'Retain acknowledged messages (default: false)'
+    required: false
+    default: 'false'
+  message-retention-duration:
+    description: 'Message retention duration (e.g., "7d", "600s"). Default is 7 days'
+    required: false
+
+outputs:
+  subscription-name:
+    description: 'Full subscription name (projects/{project}/subscriptions/{subscription})'
+  created:
+    description: 'Whether the subscription was newly created (true) or already existed (false)'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
